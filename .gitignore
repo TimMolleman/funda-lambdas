@@ -1,0 +1,6 @@
+# Distribution / packaging
+venv
+.idea
+.scrapy
+.DS_Store
+feed
