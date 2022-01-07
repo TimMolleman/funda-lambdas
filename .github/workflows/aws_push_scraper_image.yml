@@ -34,6 +34,7 @@ jobs:
         IMAGE_TAG: latest
       run: |
         # Build a docker container and push it to ECR
+        echo "$ECR_REPOSITORY reporepo"
         docker build -t $ECR_REPOSITORY .
         docker tag funda-link-scraper:latest 766485280553.dkr.ecr.eu-west-2.amazonaws.com/funda-link-scraper:latest
         echo "Pushing image to ECR..."
