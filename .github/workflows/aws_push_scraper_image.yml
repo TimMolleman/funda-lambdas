@@ -34,8 +34,8 @@ jobs:
         IMAGE_TAG: latest
       run: |
         # Build a docker container and push it to ECR
-        echo "${{ env.AWS_ACCESS_KEY }} reporepo"
-        docker build -t ${{ env.AWS_ACCESS_KEY }} .
+        echo "${{ env.ECR_REPOSITORY }} reporepo"
+        docker build -t ${{ env.ECR_REPOSITORY }} .
         docker tag funda-link-scraper:latest 766485280553.dkr.ecr.eu-west-2.amazonaws.com/funda-link-scraper:latest
         echo "Pushing image to ECR..."
         docker push 766485280553.dkr.ecr.eu-west-2.amazonaws.com/funda-link-scraper:latest
