@@ -1,5 +1,6 @@
-from fundascraper import crawl
+from scraper import crawl
 import logging
+from library import some_func
 
 logging.basicConfig(level=logging.INFO)
 
