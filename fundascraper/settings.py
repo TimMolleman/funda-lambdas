@@ -1,3 +1,5 @@
+import os
+
 BOT_NAME = 'fundascraper'
 
 SPIDER_MODULES = ['fundascraper.spiders']
@@ -7,8 +9,8 @@ NEWSPIDER_MODULE = 'fundascraper.spiders'
 ROBOTSTXT_OBEY = True
 
 # AWS stuff
-AWS_ACCESS_KEY_ID = 'AKIA3E5QVG4UYKXYSPBT'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['C+EZLpGKSp+HCpu/ieZAgBagofTREuC3YV8D4s2h']
 
 ITEM_PIPELINE = {
     'fundascraper.pipelines.files.S3FilesStore': 1

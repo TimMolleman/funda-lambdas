@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ master ]
 
-name: Funda scraper image to ECR
+name: Funda link scraper image to ECR
 
 jobs:
   deploy:
@@ -27,7 +27,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push the image to Amazon ECR
-      id: build-image
+      id: build-and-push-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: funda-link-scraper
@@ -42,6 +42,6 @@ jobs:
     - name: Update AWS lambda function code
       id: update-lambda-function-code
       env:
-        IMAGE_URI: ${{ steps.build-image.outputs.image }}
+        IMAGE_URI: ${{ steps.build-and-push-image.outputs.image }}
       run: |
         aws lambda update-function-code --function-name arn:aws:lambda:eu-west-2:766485280553:function:funda-link-scraper --image-uri $IMAGE_URI
