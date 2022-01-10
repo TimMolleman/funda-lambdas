@@ -8,4 +8,4 @@ COPY library ${LAMBDA_TASK_ROOT}
 COPY ./link_scraper/requirements.txt .
 RUN pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
 
-CMD ["launcher.main"]
+CMD ["link_scraper.launcher.main"]
