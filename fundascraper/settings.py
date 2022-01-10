@@ -10,7 +10,7 @@ ROBOTSTXT_OBEY = True
 
 # AWS stuff
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['C+EZLpGKSp+HCpu/ieZAgBagofTREuC3YV8D4s2h']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 ITEM_PIPELINE = {
     'fundascraper.pipelines.files.S3FilesStore': 1
