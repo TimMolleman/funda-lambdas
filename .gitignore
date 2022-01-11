@@ -1,6 +1,7 @@
-# Distribution / packaging
+# Folders and files to leave out
 venv
 .idea
 .scrapy
 .DS_Store
 feed
+.env
