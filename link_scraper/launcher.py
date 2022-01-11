@@ -1,4 +1,4 @@
-from scraper import crawl
+from link_scraper.scraper import crawl
 import logging
 from library import some_func
 

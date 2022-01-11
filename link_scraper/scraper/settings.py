@@ -1,9 +1,9 @@
 import os
 
-BOT_NAME = 'fundascraper'
+BOT_NAME = 'link_scraper'
 
-SPIDER_MODULES = ['fundascraper.spiders']
-NEWSPIDER_MODULE = 'fundascraper.spiders'
+SPIDER_MODULES = ['link_scraper.scraper.spiders']
+NEWSPIDER_MODULE = 'link_scraper.scraper.spiders'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True

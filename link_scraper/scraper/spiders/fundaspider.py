@@ -2,8 +2,8 @@ import scrapy
 from typing import List
 import logging
 
-from link_scraper import util
-from link_scraper.items import FundascraperItem
+from link_scraper.scraper import util
+from link_scraper.scraper.items import FundascraperItem
 
 
 class FundaSpider(scrapy.Spider):
