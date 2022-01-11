@@ -1,10 +1,10 @@
 on:
   push:
     branches: [ master ]
-    paths: [ link_cleaner/**, library/** ]
+    paths: [ link_cleaner/**, library/**, .github/workflows/aws_push_cleaner_image.yml ]
   pull_request:
     branches: [ master ]
-    paths: [ link_cleaner/**, library/** ]
+    paths: [ link_cleaner/**, library/**, .github/workflows/aws_push_cleaner_image.yml ]
 
 name: Funda link cleaner image to ECR
 
