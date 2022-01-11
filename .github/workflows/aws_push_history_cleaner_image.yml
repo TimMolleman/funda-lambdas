@@ -1,0 +1,49 @@
+on:
+  push:
+    branches: [ master ]
+    paths: [ history_link_cleaner/**, library/**, .github/workflows/aws_push_history_cleaner_image.yml ]
+  pull_request:
+    branches: [ master ]
+    paths: [ history_link_cleaner/**, library/**, .github/workflows/aws_push_history_cleaner_image.yml ]
+
+name: Funda history link cleaner image to ECR
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-2
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push the image to Amazon ECR
+      id: build-and-push-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: funda-history-link-cleaner
+        IMAGE_TAG: latest
+      run: |
+        # Build a docker container and push it to ECR
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./history_link_cleaner/Dockerfile .
+        echo "Pushing image to ECR..."
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+    - name: Update AWS lambda function code
+      id: update-lambda-function-code
+      env:
+        IMAGE_URI: ${{ steps.build-and-push-image.outputs.image }}
+      run: |
+        aws lambda update-function-code --function-name arn:aws:lambda:eu-west-2:766485280553:function:funda-history-link-cleaner --image-uri $IMAGE_URI

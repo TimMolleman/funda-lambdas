@@ -1,9 +1,5 @@
-import logging
-
 from link_scraper.scraper import crawl
 import library
-
-logging.basicConfig(level=logging.INFO)
 
 
 def scrape(event) -> str:
