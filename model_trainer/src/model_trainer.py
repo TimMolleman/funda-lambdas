@@ -1,10 +1,10 @@
-from funda_db import FundaDB
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import KFold, cross_val_score
 import numpy as np
 import logging
 
-from s3_client import S3Client
+from model_trainer.src.s3_client import S3Client
+from model_trainer.src.funda_db import FundaDB
 import library
 
 logging.basicConfig(level=logging.INFO)
