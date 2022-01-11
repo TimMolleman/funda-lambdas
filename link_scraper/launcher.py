@@ -1,6 +1,6 @@
 from link_scraper.scraper import crawl
 import logging
-from library import some_func
+import library
 
 logging.basicConfig(level=logging.INFO)
 

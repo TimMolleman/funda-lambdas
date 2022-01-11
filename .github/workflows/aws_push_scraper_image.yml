@@ -1,10 +1,10 @@
 on:
   push:
     branches: [ master ]
-    paths: [ link_scraper, library ]
+    paths: [ link_scraper/**, library/** ]
   pull_request:
     branches: [ master ]
-    paths: [ link_scraper, library ]
+    paths: [ link_scraper/**, library/** ]
 
 name: Funda link scraper image to ECR
 
