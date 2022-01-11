@@ -46,4 +46,4 @@ jobs:
       env:
         IMAGE_URI: ${{ steps.build-and-push-image.outputs.image }}
       run: |
-        aws lambda update-function-code --function-name arn:aws:lambda:eu-west-2:766485280553:function:$ECR_REPOSITORY --image-uri $IMAGE_URI
+        aws lambda update-function-code --function-name arn:aws:lambda:eu-west-2:766485280553:function:funda-link-scraper --image-uri $IMAGE_URI
