@@ -46,6 +46,7 @@ jobs:
       env:
         IMAGES_TO_DELETE: aws ecr list-images --region eu-west-2 --repository-name funda-link-cleaner --filter "tagStatus=UNTAGGED" --query 'imageIds[*]' --output json
       run: |
+        echo "$IMAGES_TO_DELETE"
         aws ecr batch-delete-image --region eu-west-2 --repository-name funda-link-cleaner --image-ids "$IMAGES_TO_DELETE" || true
 
     - name: Update AWS lambda function code
