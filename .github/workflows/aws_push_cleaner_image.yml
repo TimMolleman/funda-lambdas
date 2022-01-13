@@ -28,6 +28,14 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    - name: Delete all untagged images as to only have one image in ECR (billing purposes)
+      id: delete-untagged-images
+      env:
+        IMAGES_TO_DELETE: aws ecr list-images --region eu-west-2 --repository-name funda-link-cleaner --filter "tagStatus=UNTAGGED" --query 'imageIds[*]' --output json
+      run: |
+        echo "$IMAGES_TO_DELETE"
+        aws ecr batch-delete-image --region eu-west-2 --repository-name funda-link-cleaner --image-ids "$IMAGES_TO_DELETE" || true
+
     - name: Build, tag, and push the image to Amazon ECR
       id: build-and-push-image
       env:
@@ -40,14 +48,6 @@ jobs:
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
-    - name: Delete all untagged images as to only have one image in ECR (billing purposes)
-      id: delete-untagged-images
-      env:
-        IMAGES_TO_DELETE: aws ecr list-images --region eu-west-2 --repository-name funda-link-cleaner --filter "tagStatus=UNTAGGED" --query 'imageIds[*]' --output json
-      run: |
-        echo "$IMAGES_TO_DELETE"
-        aws ecr batch-delete-image --region eu-west-2 --repository-name funda-link-cleaner --image-ids "$IMAGES_TO_DELETE" || true
 
     - name: Update AWS lambda function code
       id: update-lambda-function-code
