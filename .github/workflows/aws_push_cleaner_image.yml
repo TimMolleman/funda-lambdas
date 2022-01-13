@@ -41,6 +41,13 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
+    - name: Delete all untagged images as to only have one image in ECR (billing purposes)
+      id: delete-untagged-images
+      env:
+        IMAGES_TO_DELETE: $( aws ecr list-images --region eu-west-2 --repository-name funda-link-cleaner --filter "tagStatus=UNTAGGED" --query 'imageIds[*]' --output json )
+      run: |
+        aws ecr batch-delete-image --region eu-west-2 --repository-name funda-link-cleaner --image-ids "$IMAGES_TO_DELETE" || true
+
     - name: Update AWS lambda function code
       id: update-lambda-function-code
       env:

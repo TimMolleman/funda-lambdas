@@ -42,7 +42,7 @@ class S3Client:
                 get_last_modified = lambda link_obj: int(link_obj['LastModified'].strftime('%s'))
                 most_recent_links = most_recent_links['Contents'][1:]
                 last_added = \
-                [link_obj for link_obj in sorted(most_recent_links, key=get_last_modified, reverse=True)][0]
+                    [link_obj for link_obj in sorted(most_recent_links, key=get_last_modified, reverse=True)][0]
 
                 # Get last_added file contents and also the time the file was inserted into s3
                 last_added_bucket_link = last_added['Key']
@@ -82,6 +82,15 @@ class S3Client:
         self.s3.put_object(Bucket=bucket, Body=csv_buffer.getvalue(), Key=constants.HISTORIC_LINKS_KEY)
 
         self.logger.info('Finished writing recent links and historic links')
+
+    def read_object_to_df(self, bucket: str, key: str):
+        # Retrieve history links object from S3
+        try:
+            historic_links_obj = self.s3.get_object(Bucket=constants.FUNDA_BUCKET, Key=constants.HISTORIC_LINKS_KEY)
+            history_links_df = pd.read_csv(historic_links_obj['Body'], parse_dates=['time_added'])
+        except self.s3.exceptions.NoSuchKey as e:
+            self.logger.exception('Missing history-links.csv in s3')
+            raise e
 
     @staticmethod
     def _init_logger():
