@@ -8,4 +8,4 @@ COPY library ${LAMBDA_TASK_ROOT}/library
 COPY ./model_trainer/requirements.txt .
 RUN pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
 
-CMD ["model_trainer.src.model_trainer.main"]
+CMD ["model_trainer.src.trainer.main"]

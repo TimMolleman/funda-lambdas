@@ -1,10 +1,10 @@
 on:
   push:
     branches: [ master ]
-    paths: [ model_trainer/**, library/**, .github/workflows/aws_push_model_trainer_image.yml ]
+    paths: [ model_trainerkankerkankerkankerding/**, library/**, .github/workflows/aws_push_model_trainer_image.yml ]
   pull_request:
     branches: [ master ]
-    paths: [ model_trainer/**, library/**, .github/workflows/aws_push_model_trainer_image.yml ]
+    paths: [ model_trainerkankerkankerkankerding/**, library/**, .github/workflows/aws_push_model_trainer_image.yml ]
 
 name: Funda model trainer image to ECR
 

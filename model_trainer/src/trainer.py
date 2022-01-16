@@ -2,10 +2,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import KFold, cross_val_score
 import numpy as np
 import logging
+import pickle
 
-from model_trainer.src.s3_client import S3Client
 from model_trainer.src.funda_db import FundaDB
-import library
+from library import constants
+from library.s3_client import S3Client
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -31,10 +32,14 @@ def main(events={}, context={}):
 
     # Fit the eventual model for use on all data
     model.fit(df_x, df_y)
+    pickle_byte_obj = pickle.dumps(model)
 
     # Write model away
     s3_client = S3Client()
-    s3_client.write_model_to_s3_file(model)
+    s3_client.put_bytes_data_to_s3(bucket=constants.FUNDA_BUCKET, key=constants.TRAINED_MODEL_KEY,
+                                   bytes_object=pickle_byte_obj)
+
+    logger.info('Put model into S3 bucket')
 
 
 if __name__ == '__main__':

@@ -14,6 +14,7 @@ class FundaDB:
         self.engine = sqlalchemy.create_engine(f'mysql+pymysql://{user}:{password}@{host}/{db}')
 
     def query_house_data(self):
+        """Query all housing info."""
         sql = sqlalchemy.text('SELECT * FROM city_info')
         df = pd.read_sql(sql, self.engine)
         return df
