@@ -11,6 +11,8 @@ to an Amazon S3 bucket. After this some transformations are done, and a model is
 API [(see repository)](https://github.com/TimMolleman/funda-api). To schedule all lambdas and to do a number of other
 transformations Apache Airflow is used [(see repository)](https://github.com/TimMolleman/funda-airflow).
 
+For managing AWS infrastructure reliably and assure re-usability, Terraform is used [(see repository)](https://github.com/TimMolleman/funda-terraform).
+
 ## Description
 This repository contains the code for the lambda functions that are invoked via Apache Airflow.
 To be exact, it contains four modules of code with accessory Dockerfiles and requirements.txt for creating the lambda image:
